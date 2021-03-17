@@ -1,5 +1,6 @@
-import requests
+"""Flask Weather App"""
 import datetime
+import requests
 from flask import Flask, request, redirect, render_template, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
@@ -13,6 +14,7 @@ db = SQLAlchemy(app)
 
 
 class City(db.Model):
+    """City object class"""
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     date_added = db.Column(db.String(20), nullable=False)
@@ -21,6 +23,7 @@ class City(db.Model):
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
+    """index page route"""
     url = "http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=05443b3ba2b770a860712cc4afb3a43e"
     if request.method == 'POST':
         city_name = request.form['city'].capitalize()
@@ -68,4 +71,4 @@ def delete_record(id):
 
 
 db.create_all()
-app.run(host='0.0.0.0', port=5001, debug=True)
+app.run(host='0.0.0.0', debug=True)
