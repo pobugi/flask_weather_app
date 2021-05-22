@@ -4,6 +4,7 @@ from weather_app import db
 from weather_app.main import bp
 from flask import request, redirect, render_template, url_for, flash
 from weather_app.weather_api.weather_api import weather_request
+from flask import current_app
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -24,6 +25,7 @@ def index():
         city_object = City(name=city_name, date_added=date_added)
         db.session.add(city_object)
         flash('{} has been successfully added'.format(city_name), 'success')
+        current_app.logger.info('New record added')
         db.session.commit()
     if City:
         all_cities = City.query.order_by(City.date_added.desc()).all()  # Все записи БД
@@ -53,6 +55,7 @@ def delete_record(id):
         try:
             City.delete_city(id)  # Обращение к методу delete_city для удаления из БД
             flash('Record deleted', 'danger')
+            current_app.logger.warning('Record deleted')
         except:
             flash('Something has gone wrong', 'danger')  # Уведомление в случае неудачного удаления записи
         return redirect('/index')
