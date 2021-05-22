@@ -7,3 +7,9 @@ Flask Weather App
 В приложении разработаны модульные тесты,реализовано логирование.
 
 Для запуска приложения: 1. Клонируйте репозиторий 2. Перейдите в соответствующию директорию 3. Создайте виртуальное окружение 4. Установите зависимости: Linux: pip3 install -r requirements.txt Windows: pip install -r requirements.txt 5. Запустите приложение (weather_app_run.py)
+
+Для запуска используя Docker:
+ - make build
+ - make run
+
+TODO: to fix tests
